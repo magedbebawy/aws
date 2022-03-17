@@ -17,9 +17,13 @@ exports.handler = async (event) => {
             response = buildResponse(200);
             break;
         case event.httpMethod === 'GET' && event.path === productPath:
-            response = getProduct(event.queryStringParameters.productId);
+            response = await getProduct(event.queryStringParameters.productId);
             break;
-        case event.healthPath
+        case event.httpMethod === 'GET' && event.path === productsPath:
+            response = await getProducts();
+            break;
+        case event.httpMethod === 'POST' && event.path === productPath:
+            response = await saveProduct()
     }
 }
 
